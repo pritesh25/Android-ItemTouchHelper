@@ -62,7 +62,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
         holder.textView.setText(mItems.get(position));
 
         // Start a drag whenever the handle view it touched
-        holder.handleView.setOnTouchListener(new View.OnTouchListener() {
+        /*holder.handleView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
@@ -70,7 +70,16 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
                 }
                 return false;
             }
+        });*/
+
+        holder.handleView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mDragStartListener.onStartDrag(holder);
+                return true;
+            }
         });
+
     }
 
     @Override

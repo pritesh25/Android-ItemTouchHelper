@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9f1f04540be520b789627a47c1742ef3377bba3
 package co.paulburke.android.itemtouchhelperdemo;
 
 import android.os.Bundle;
@@ -39,6 +43,7 @@ public class RecyclerListFragment extends Fragment implements OnStartDragListene
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
