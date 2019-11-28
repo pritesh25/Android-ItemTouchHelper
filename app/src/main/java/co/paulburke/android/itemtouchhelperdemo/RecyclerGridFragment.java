@@ -17,24 +17,24 @@
 package co.paulburke.android.itemtouchhelperdemo;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 import co.paulburke.android.itemtouchhelperdemo.helper.OnStartDragListener;
 import co.paulburke.android.itemtouchhelperdemo.helper.SimpleItemTouchHelperCallback;
 
-/**
- * @author Paul Burke (ipaulpro)
- */
 public class RecyclerGridFragment extends Fragment implements OnStartDragListener {
 
     private ItemTouchHelper mItemTouchHelper;
+    private RecyclerListAdapter adapter;
+    private int i = 0;
 
     public RecyclerGridFragment() {
     }
@@ -42,16 +42,17 @@ public class RecyclerGridFragment extends Fragment implements OnStartDragListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return new RecyclerView(container.getContext());
+        return inflater.inflate(R.layout.fragment_grid, container, false);
+        //return new RecyclerView(container.getContext());
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final RecyclerListAdapter adapter = new RecyclerListAdapter(getActivity(), this);
+        adapter = new RecyclerListAdapter(getActivity(), this);
 
-        RecyclerView recyclerView = (RecyclerView) view;
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
@@ -62,6 +63,21 @@ public class RecyclerGridFragment extends Fragment implements OnStartDragListene
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(recyclerView);
+
+        view.findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addItem();
+            }
+        });
+
+    }
+
+    private void addItem() {
+
+        i++;
+        adapter.addItem(""+i);
+
     }
 
     @Override
